@@ -16,3 +16,4 @@ rootProject.name = "DiceRoller"
 include ':app'
 include ':composearticle'
 include ':taskcompleted'
+include ':composequadrant'
