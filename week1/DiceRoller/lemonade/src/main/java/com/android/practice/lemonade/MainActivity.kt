@@ -68,6 +68,14 @@ fun Lemonade(modifier: Modifier = Modifier) {
                         id = R.color.blue_69cdd8
                     )
                 )
+                .clickable {
+                    if (stage.value == 2) {
+                        if ((1..4).random() == 4)
+                            stage.value++
+                    } else {
+                        stage.value++
+                    }
+                }
         )
     }
 }
