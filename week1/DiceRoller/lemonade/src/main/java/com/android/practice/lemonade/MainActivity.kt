@@ -50,13 +50,23 @@ fun Lemonade(modifier: Modifier = Modifier) {
             R.drawable.img_lemon_tree
         }
     }
+    val stringResource = when (stage.value) {
+        1 -> R.string.lemonade_first
+        2 -> R.string.lemonade_second
+        3 -> R.string.lemonade_third
+        4 -> R.string.lemonade_fourth
+        else -> {
+            stage.value = 1
+            R.drawable.img_lemon_tree
+        }
+    }
 
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = stringResource(id = R.string.lemonade_first), modifier.padding(bottom = 10.dp))
+        Text(text = stringResource(id = stringResource), modifier.padding(bottom = 10.dp))
         Image(
             painter = painterResource(id = imageResource),
             contentDescription = stringResource(
