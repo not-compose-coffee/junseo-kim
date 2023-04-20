@@ -40,9 +40,13 @@ fun Lemonade(modifier: Modifier = Modifier) {
     val stage = remember {
         mutableStateOf(1)
     }
+    var squeezeLemon = 0
     val imageResource = when (stage.value) {
         1 -> R.drawable.img_lemon_tree
-        2 -> R.drawable.img_lemon_squeeze
+        2 -> {
+            squeezeLemon = (2..4).random()
+            R.drawable.img_lemon_squeeze
+        }
         3 -> R.drawable.img_lemon_drink
         4 -> R.drawable.img_lemon_restart
         else -> {
@@ -80,7 +84,8 @@ fun Lemonade(modifier: Modifier = Modifier) {
                 )
                 .clickable {
                     if (stage.value == 2) {
-                        if ((1..4).random() == 4)
+                        squeezeLemon--
+                        if (squeezeLemon == 0)
                             stage.value++
                     } else {
                         stage.value++
