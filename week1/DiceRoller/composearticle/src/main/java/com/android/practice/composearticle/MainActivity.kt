@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ComposeArticleWithStringAndImage(
-    modifier: Modifier = Modifier.fillMaxSize(),
+    modifier: Modifier = Modifier.fillMaxSize(), titleFontSize: Int,
 ) {
     Column(modifier = modifier) {
         Image(
@@ -47,7 +47,7 @@ fun ComposeArticleWithStringAndImage(
         )
         Text(
             text = stringResource(id = R.string.title),
-            fontSize = 24.sp,
+            fontSize = titleFontSize,
             modifier = Modifier.padding(16.dp)
         )
         Text(
@@ -67,6 +67,6 @@ fun ComposeArticleWithStringAndImage(
 @Composable
 fun ComposeArticleApp() {
     DiceRollerTheme {
-        ComposeArticleWithStringAndImage()
+        ComposeArticleWithStringAndImage(titleFontSize = 24.sp)
     }
 }
