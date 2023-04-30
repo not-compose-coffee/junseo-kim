@@ -47,16 +47,7 @@ fun ComposeQuadrantWithString(modifier: Modifier = Modifier) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = stringResource(
-                        id = R.string.first_title
-                    ), fontWeight = FontWeight.Bold, modifier = modifier.padding(bottom = 16.dp)
-                )
-                Text(
-                    text = stringResource(
-                        id = R.string.first_desc
-                    )
-                )
+                Card(R.string.first_title, R.string.first_desc)
             }
             Column(
                 modifier = modifier
@@ -67,16 +58,7 @@ fun ComposeQuadrantWithString(modifier: Modifier = Modifier) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = stringResource(
-                        id = R.string.second_title
-                    ), fontWeight = FontWeight.Bold, modifier = modifier.padding(bottom = 16.dp)
-                )
-                Text(
-                    text = stringResource(
-                        id = R.string.second_desc
-                    )
-                )
+                Card(R.string.second_title, R.string.second_desc)
             }
         }
         Row(modifier = modifier.fillMaxHeight()) {
@@ -89,16 +71,7 @@ fun ComposeQuadrantWithString(modifier: Modifier = Modifier) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = stringResource(
-                        id = R.string.third_title
-                    ), fontWeight = FontWeight.Bold, modifier = modifier.padding(bottom = 16.dp)
-                )
-                Text(
-                    text = stringResource(
-                        id = R.string.third_desc
-                    )
-                )
+                Card(R.string.third_title, R.string.third_desc)
             }
             Column(
                 modifier = modifier
@@ -109,19 +82,24 @@ fun ComposeQuadrantWithString(modifier: Modifier = Modifier) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = stringResource(
-                        id = R.string.fourth_title
-                    ), fontWeight = FontWeight.Bold, modifier = modifier.padding(bottom = 16.dp)
-                )
-                Text(
-                    text = stringResource(
-                        id = R.string.fourth_desc
-                    )
-                )
+                Card(R.string.fourth_title, R.string.fourth_desc)
             }
         }
     }
+}
+
+@Composable
+fun Card(titleStringResource: Int, descStringResource: Int) {
+    Text(
+        text = stringResource(
+            id = titleStringResource
+        ), fontWeight = FontWeight.Bold, modifier = modifier.padding(bottom = 16.dp)
+    )
+    Text(
+        text = stringResource(
+            id = descStringResource
+        )
+    )
 }
 
 @Preview(showBackground = true)
