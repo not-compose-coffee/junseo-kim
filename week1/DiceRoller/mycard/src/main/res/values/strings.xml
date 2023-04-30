@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Card</string>
+    <string name="profile_name">Giovanni Junseo Kim</string>
+    <string name="profile_job">Android Potato Developer</string>
+    <string name="profile_phone_number">010-1234-5678</string>
+    <string name="profile_share_desc">share to your friends</string>
+    <string name="profile_email">junseojjang@google.com</string>
+</resources>
