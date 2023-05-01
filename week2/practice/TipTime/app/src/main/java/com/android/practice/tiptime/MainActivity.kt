@@ -82,6 +82,13 @@ private fun EditNumberField() {
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         singleLine = true
     )
+    val amount = amountInput.toDoubleOrNull() ?: 0.0
+    val tip = calculateTip(amount = amount)
+}
+
+private fun calculateTip(amount: Double, tipPercent: Double = 15.0): String {
+    val tip = tipPercent / 100 * amount
+    return NumberFormat.getCurrencyInstance().format(tip)
 }
 
 @Preview(showBackground = true)
