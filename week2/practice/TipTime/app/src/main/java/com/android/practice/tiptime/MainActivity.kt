@@ -50,6 +50,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TipTimeScreen(modifier: Modifier = Modifier) {
+    var amountInput by remember { mutableStateOf("") }
+
+    val amount = amountInput.toDoubleOrNull() ?: 0.0
+    val tip = calculateTip(amount = amount)
+
     Column(
         modifier = modifier.padding(32.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -59,11 +64,11 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
             modifier = modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = modifier.height(16.dp))
-        EditNumberField()
+        EditNumberField(value = amountInput, onValueChange = { amountInput = it })
         Spacer(modifier = modifier.height(24.dp))
         Text(
             modifier = modifier.align(Alignment.CenterHorizontally),
-            text = stringResource(id = R.string.tip_amount, ""),
+            text = stringResource(id = R.string.tip_amount, tip),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
         )
@@ -72,18 +77,18 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun EditNumberField() {
-    var amountInput by remember { mutableStateOf("") }
+private fun EditNumberField(
+    value: String,
+    onValueChange: (String) -> Unit,
+) {
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = amountInput,
-        onValueChange = { amountInput = it },
+        value = value,
+        onValueChange = onValueChange,
         label = { Text(text = stringResource(id = R.string.cost_of_service)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         singleLine = true
     )
-    val amount = amountInput.toDoubleOrNull() ?: 0.0
-    val tip = calculateTip(amount = amount)
 }
 
 private fun calculateTip(amount: Double, tipPercent: Double = 15.0): String {
