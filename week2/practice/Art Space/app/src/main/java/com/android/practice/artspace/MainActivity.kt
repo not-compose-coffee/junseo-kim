@@ -54,77 +54,99 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ArtSpace(quotations: List<Quotation>, modifier: Modifier = Modifier) {
     var position by remember { mutableStateOf(0) }
+    val setPositionPrevious: () -> Unit = {
+        if (position == 0) position = 2
+        else position--
+    }
+    val setPositionNext: () -> Unit = {
+        if (position == 2) position = 0
+        else position++
+    }
+    ArtSpaceScreen(
+        ArtSpaceScreenArguments(
+            quotations = quotations,
+            position = position,
+            previousBtnClickEvent = setPositionPrevious,
+            nextBtnClickEvent = setPositionNext
+        ), modifier
+    )
+}
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Surface(
+@Composable
+fun ArtSpaceScreen(parameters: ArtSpaceScreenArguments, modifier: Modifier) {
+    with(parameters) {
+        Column(
             modifier = modifier
-                .fillMaxWidth(0.8f)
-                .fillMaxHeight(0.6f),
-            shadowElevation = 3.dp,
-            border = BorderStroke(1.dp, Color.Black),
-            shape = RoundedCornerShape(15.dp)
+                .fillMaxSize()
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = quotations[position].personImageResource),
-                contentDescription = "charactor",
-                modifier = modifier.padding(12.dp)
-            )
-        }
-        Card(
-            modifier
-                .fillMaxWidth(0.8f)
-                .wrapContentHeight()
-                .padding(top = 20.dp),
-            elevation = CardDefaults.cardElevation(3.dp),
-        ) {
-            Column(modifier = modifier.padding(20.dp)) {
-                Text(
-                    text = quotations[position].personName,
-                    fontSize = 26.sp,
-                    fontWeight = FontWeight.Bold
+            Surface(
+                modifier = modifier
+                    .fillMaxWidth(0.8f)
+                    .fillMaxHeight(0.6f),
+                shadowElevation = 3.dp,
+                border = BorderStroke(1.dp, Color.Black),
+                shape = RoundedCornerShape(15.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = quotations[position].personImageResource),
+                    contentDescription = "charactor",
+                    modifier = modifier.padding(12.dp)
                 )
-                Row() {
+            }
+            Card(
+                modifier
+                    .fillMaxWidth(0.8f)
+                    .wrapContentHeight()
+                    .padding(top = 20.dp),
+                elevation = CardDefaults.cardElevation(3.dp),
+            ) {
+                Column(modifier = modifier.padding(20.dp)) {
                     Text(
-                        text = quotations[position].wiseSaying,
-                        fontSize = 16.sp
+                        text = quotations[position].personName,
+                        fontSize = 26.sp,
+                        fontWeight = FontWeight.Bold
                     )
+                    Row {
+                        Text(
+                            text = quotations[position].wiseSaying, fontSize = 16.sp
+                        )
+                    }
                 }
             }
-        }
-        Row(
-            modifier = modifier
-                .fillMaxWidth(0.8f)
-                .fillMaxHeight(),
-            verticalAlignment = Alignment.Bottom
-        ) {
-            Button(
-                onClick = {
-                    if (position == 0) position = 2
-                    else position--
-                }, modifier.fillMaxWidth(0.45f),
-                elevation = ButtonDefaults.buttonElevation(3.dp)
+            Row(
+                modifier = modifier
+                    .fillMaxWidth(0.8f)
+                    .fillMaxHeight(),
+                verticalAlignment = Alignment.Bottom
             ) {
-                Text(text = "Previous")
-            }
-            Spacer(modifier = modifier.fillMaxWidth(0.1f))
-            Button(
-                onClick = {
-                    if (position == 2) position = 0
-                    else position++
-                }, modifier.fillMaxWidth(),
-                elevation = ButtonDefaults.buttonElevation(3.dp)
-            ) {
-                Text(text = "Next")
+                Button(
+                    onClick = previousBtnClickEvent,
+                    modifier.fillMaxWidth(0.45f),
+                    elevation = ButtonDefaults.buttonElevation(3.dp)
+                ) {
+                    Text(text = "Previous")
+                }
+                Spacer(modifier = modifier.fillMaxWidth(0.1f))
+                Button(
+                    onClick = nextBtnClickEvent,
+                    modifier.fillMaxWidth(),
+                    elevation = ButtonDefaults.buttonElevation(3.dp)
+                ) {
+                    Text(text = "Next")
+                }
             }
         }
     }
 }
 
+data class ArtSpaceScreenArguments(
+    val quotations: List<Quotation>,
+    var position: Int,
+    val nextBtnClickEvent: () -> Unit,
+    val previousBtnClickEvent: () -> Unit,
+)
 
 @Preview(showBackground = true)
 @Composable
