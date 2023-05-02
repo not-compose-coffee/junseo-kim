@@ -3,6 +3,7 @@ package com.android.practice.artspace
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,22 +34,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.android.practice.artspace.data.model.Quotation
 import com.android.practice.artspace.ui.theme.ArtSpaceTheme
 
 class MainActivity : ComponentActivity() {
+    private val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContent {
             ArtSpaceTheme {
                 // A surface container using the 'background' color from the theme
-                ArtSpace()
+                ArtSpace(viewModel.getQuotations())
             }
         }
     }
 }
 
 @Composable
-fun ArtSpace(modifier: Modifier = Modifier) {
+fun ArtSpace(quotations: List<Quotation>, modifier: Modifier = Modifier) {
+    var position by remember { mutableStateOf(0) }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -60,7 +70,7 @@ fun ArtSpace(modifier: Modifier = Modifier) {
             shape = RoundedCornerShape(15.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.img_bill_gates),
+                painter = painterResource(id = quotations[position].personImageResource),
                 contentDescription = "charactor",
                 modifier = modifier.padding(12.dp)
             )
@@ -73,10 +83,14 @@ fun ArtSpace(modifier: Modifier = Modifier) {
             elevation = CardDefaults.cardElevation(3.dp),
         ) {
             Column(modifier = modifier.padding(20.dp)) {
-                Text(text = "Charactor Name", fontSize = 26.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    text = quotations[position].personName,
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold
+                )
                 Row() {
                     Text(
-                        text = "what he said ...",
+                        text = quotations[position].wiseSaying,
                         fontSize = 16.sp
                     )
                 }
@@ -89,14 +103,20 @@ fun ArtSpace(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.Bottom
         ) {
             Button(
-                onClick = { /*TODO*/ }, modifier.fillMaxWidth(0.45f),
+                onClick = {
+                    if (position == 0) position = 2
+                    else position--
+                }, modifier.fillMaxWidth(0.45f),
                 elevation = ButtonDefaults.buttonElevation(3.dp)
             ) {
                 Text(text = "Previous")
             }
             Spacer(modifier = modifier.fillMaxWidth(0.1f))
             Button(
-                onClick = { /*TODO*/ }, modifier.fillMaxWidth(),
+                onClick = {
+                    if (position == 2) position = 0
+                    else position++
+                }, modifier.fillMaxWidth(),
                 elevation = ButtonDefaults.buttonElevation(3.dp)
             ) {
                 Text(text = "Next")
@@ -105,10 +125,11 @@ fun ArtSpace(modifier: Modifier = Modifier) {
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     ArtSpaceTheme {
-        ArtSpace()
+        ArtSpace(MainViewModel().getQuotations())
     }
 }
