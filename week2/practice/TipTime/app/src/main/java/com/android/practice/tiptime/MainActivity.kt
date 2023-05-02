@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.android.practice.tiptime.ui.theme.TipTimeTheme
 import java.text.NumberFormat
+import java.util.Locale
 import kotlin.math.ceil
 
 class MainActivity : ComponentActivity() {
@@ -165,7 +166,7 @@ private fun RoundTheTipRow(
 private fun calculateTip(amount: Double, tipPercent: Double = 15.0, roundUp: Boolean): String {
     var tip = tipPercent / 100 * amount
     if (roundUp) tip = ceil(tip)
-    return NumberFormat.getCurrencyInstance().format(tip)
+    return NumberFormat.getCurrencyInstance(Locale.US).format(tip)
 }
 
 @Preview(showBackground = true)
