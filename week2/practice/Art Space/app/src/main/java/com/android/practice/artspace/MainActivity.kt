@@ -83,7 +83,7 @@ fun ArtSpaceScreen(parameters: ArtSpaceScreenArguments, modifier: Modifier) {
         ) {
             Surface(
                 modifier = modifier
-                    .fillMaxWidth(0.8f)
+                    .fillMaxWidth(0.9f)
                     .fillMaxHeight(0.6f),
                 shadowElevation = 3.dp,
                 border = BorderStroke(1.dp, Color.Black),
@@ -97,7 +97,7 @@ fun ArtSpaceScreen(parameters: ArtSpaceScreenArguments, modifier: Modifier) {
             }
             Card(
                 modifier
-                    .fillMaxWidth(0.8f)
+                    .fillMaxWidth(0.9f)
                     .wrapContentHeight()
                     .padding(top = 20.dp),
                 elevation = CardDefaults.cardElevation(3.dp),
@@ -117,7 +117,7 @@ fun ArtSpaceScreen(parameters: ArtSpaceScreenArguments, modifier: Modifier) {
             }
             Row(
                 modifier = modifier
-                    .fillMaxWidth(0.8f)
+                    .fillMaxWidth(0.9f)
                     .fillMaxHeight(),
                 verticalAlignment = Alignment.Bottom
             ) {
