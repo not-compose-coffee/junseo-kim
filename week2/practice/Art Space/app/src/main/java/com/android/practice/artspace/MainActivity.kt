@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -91,7 +92,7 @@ fun ArtSpaceScreen(parameters: ArtSpaceScreenArguments, modifier: Modifier) {
             ) {
                 Image(
                     painter = painterResource(id = quotations[position].personImageResource),
-                    contentDescription = "charactor",
+                    contentDescription = stringResource(R.string.character),
                     modifier = modifier.padding(12.dp)
                 )
             }
@@ -126,7 +127,7 @@ fun ArtSpaceScreen(parameters: ArtSpaceScreenArguments, modifier: Modifier) {
                     modifier.fillMaxWidth(0.45f),
                     elevation = ButtonDefaults.buttonElevation(3.dp)
                 ) {
-                    Text(text = "Previous")
+                    Text(text = stringResource(R.string.previous))
                 }
                 Spacer(modifier = modifier.fillMaxWidth(0.1f))
                 Button(
@@ -134,7 +135,7 @@ fun ArtSpaceScreen(parameters: ArtSpaceScreenArguments, modifier: Modifier) {
                     modifier.fillMaxWidth(),
                     elevation = ButtonDefaults.buttonElevation(3.dp)
                 ) {
-                    Text(text = "Next")
+                    Text(text = stringResource(R.string.next))
                 }
             }
         }
